@@ -11,6 +11,7 @@
     --background-color: #2A1B3D;
     --text-color: #FFFFFF;
     --border-color: rgba(0, 255, 255, 0.3);
+    --input-bg: rgba(0, 0, 0, 0.12);
 }
 
 body {
@@ -30,7 +31,6 @@ body {
     background: var(--background-color);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .screen {
@@ -54,26 +54,81 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 20px 0;
 }
 
-h1, h2 {
-    color: var(--text-color);
+.splash-content {
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container {
     text-align: center;
+    margin-bottom: 20px;
 }
 
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+.gradient-text {
+    font-size: 48px;
+    font-weight: bold;
     background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-h2 {
-    font-size: 1.8rem;
+.loading-indicator {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--primary-gradient-start);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+    margin: 20px 0;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.header {
+    padding: 16px;
+    background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
+    border-radius: 12px;
     margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-size: 16px;
+}
+
+.phone-input {
+    display: flex;
+    align-items: center;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.prefix {
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--text-color);
 }
 
 .input-field {
@@ -81,23 +136,27 @@ h2 {
     padding: 12px;
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    font-size: 1rem;
-    margin-bottom: 10px;
-    background: rgba(0, 0, 0, 0.12);
+    font-size: 16px;
+    background: var(--input-bg);
     color: var(--text-color);
 }
 
-textarea.input-field {
-    min-height: 100px;
-    resize: vertical;
+.input-field::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.required::after {
+    content: " *";
+    color: var(--primary-gradient-end);
 }
 
 button {
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     border: none;
     border-radius: 30px;
-    font-size: 1rem;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
     transition: all 0.2s;
 }
@@ -105,7 +164,6 @@ button {
 .primary-btn {
     background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
     color: var(--background-color);
-    font-weight: bold;
 }
 
 .primary-btn:hover {
@@ -113,44 +171,52 @@ button {
     box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
 }
 
-.secondary-btn {
-    background: rgba(0, 0, 0, 0.12);
-    color: var(--text-color);
+.social-login {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--input-bg);
     border: 1px solid var(--border-color);
+    color: var(--text-color);
 }
 
-.secondary-btn:hover {
-    background: rgba(0, 0, 0, 0.2);
-    transform: translateY(-1px);
+.social-btn img {
+    width: 24px;
+    height: 24px;
 }
 
-.next-btn {
-    margin-top: 10px;
-}
-
-.header {
+.month-navigator {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    padding: 16px;
-    background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
-    border-radius: 12px;
+    padding: 10px 0;
 }
 
-.add-btn {
+.nav-btn {
     width: auto;
     padding: 8px 16px;
-    background: var(--primary-gradient-end);
-    color: var(--text-color);
-    border-radius: 20px;
+    background: transparent;
+    color: var(--primary-gradient-start);
+    font-size: 20px;
+}
+
+.current-month {
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 8px;
-    margin-top: 20px;
     padding: 16px;
 }
 
@@ -161,20 +227,51 @@ button {
     justify-content: center;
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    font-size: 0.9rem;
-    background: rgba(0, 0, 0, 0.12);
+    font-size: 14px;
+    background: var(--input-bg);
     color: var(--text-color);
+}
+
+.floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    background: var(--primary-gradient-end);
+    color: var(--text-color);
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
+}
+
+.profile-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 0;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .map-placeholder {
     flex: 1;
-    background: rgba(0, 0, 0, 0.12);
+    background: var(--input-bg);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-color);
     border: 1px solid var(--border-color);
+    margin: 20px 0;
 }
 
 /* Responsive adjustments */
@@ -184,15 +281,15 @@ button {
         max-height: 100vh;
     }
 
-    h1 {
-        font-size: 2rem;
+    .gradient-text {
+        font-size: 36px;
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 20px;
     }
 
     .input-field, button {
-        padding: 10px;
+        padding: 12px;
     }
 } 
